@@ -26,9 +26,9 @@ public class LinkedStack<E> implements Stack<E> {
         System.out.println("stack size: " + stack.size());
         System.out.println(stack);
 
-        System.out.println( stack.pop() );
-        System.out.println( stack.pop() );
-        System.out.println( stack.pop() );
+        System.out.println( "pop: " + stack.pop() );
+        System.out.println( "pop: " + stack.pop() );
+        System.out.println( "pop: " + stack.pop() );
 
         System.out.println( stack );
 
