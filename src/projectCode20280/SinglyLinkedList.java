@@ -280,6 +280,17 @@ public class SinglyLinkedList<E> implements List<E> {
         }
     }
 
+    /**
+     * @return the first element in the list
+     */
+    public E first() {
+        if(isEmpty()) {
+            return null;
+        } else {
+            return get(0);
+        }
+    }
+    
     public static void main(String[] args) {
         String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
