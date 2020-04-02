@@ -189,7 +189,6 @@ public class DoublyLinkedList<E> implements List<E> {
 
         int count = 0;
         while (cur != trailer && count != i) { // walk through list until correct index is found
-            cur.prev = cur;
             cur = cur.next;
             count++;
         }
@@ -260,21 +259,34 @@ public class DoublyLinkedList<E> implements List<E> {
 
     public static void main(String[] args) {
         DoublyLinkedList<Integer> ll = new DoublyLinkedList<Integer>();
-        ll.addFirst(0);
-        ll.addFirst(1);
         ll.addFirst(2);
-        ll.addLast(-1);
+        ll.addFirst(1);
+        ll.addFirst(0);
+        ll.addLast(3);
+        ll.addLast(4);
+        ll.addLast(5);
+        ll.add(2, 20);
         System.out.println(ll);
-
         ll.removeFirst();
         System.out.println(ll);
-
+        ll.removeFirst();
+        System.out.println(ll);
+        ll.removeFirst();
+        System.out.println(ll);
         ll.removeLast();
         System.out.println(ll);
+        ll.removeLast();
+        System.out.println(ll);
+
+        System.out.println("size:  " + ll.size);
 
         for(Integer e: ll) {
             System.out.println("value: " + e);
         }
+        System.out.println("Remove last: " + ll.removeLast());
+        System.out.println("Remove last: " + ll.removeLast());
+        ll.removeLast();
+        System.out.println("List should now be empty: " + ll);
     }
 
     public String toString() {
