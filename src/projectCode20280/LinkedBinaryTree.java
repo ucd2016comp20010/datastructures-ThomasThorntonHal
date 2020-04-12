@@ -1,4 +1,5 @@
 package projectCode20280;
+import java.util.ArrayList;
 
 /**
  * Concrete implementation of a binary tree using a node-based, linked structure.
@@ -284,6 +285,21 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
         }
         sb.append("]");
         return sb.toString();
+    }
+
+    public void createLevelOrder(ArrayList<E> arr) {
+        root = createLevelOrderHelper(arr, root, 0);
+    }
+
+    private Node<E> createLevelOrderHelper(ArrayList<E> arr, Node<E> p, int i) {
+        if(i < arr.size()) {
+            Node<E> n = createNode(arr.get(i), p, null, null);
+            n.left = createLevelOrderHelper(arr, n.left, 2*i + 1);
+            n.right = createLevelOrderHelper(arr, n.right, 2*i + 2);
+            size++;
+            return n;
+        }
+        return p;
     }
 
     public void createLevelOrder(E[] arr) {
