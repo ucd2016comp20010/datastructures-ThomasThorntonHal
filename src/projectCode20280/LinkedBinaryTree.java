@@ -254,34 +254,43 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
      */
     public E remove(Position<E> p) throws IllegalArgumentException {
         Node<E> pos = (Node<E>) p;
-        Node<E> parent = ((Node<E>) p).parent; // parent of given node
-        if(pos.left == null && pos.right == null) { // if p has no children it can be unlinked from its parent
-            if(parent.getLeft() == p) {
-                parent.setLeft(null);
-            } else {
-                parent.setRight(null);
-            }
-            size--;
-            return pos.element;
-        } else if (pos.left != null && pos.right != null){ // if p has 2 children throw error
-            throw new IllegalArgumentException("Too many children");
-        } else {
-            if(pos.left != null) { // replace parents child with deleted nodes child
-                parent.setLeft(pos.left);
-            } else {
-                parent.setRight(pos.right);
-            }
-            size--;
-            return pos.element;
+        if(numChildren(p) == 2) {
+            throw new IllegalArgumentException("Node has 2 children");
         }
+        Node<E> child = (pos.getLeft() != null ? pos.getLeft() : pos.getRight());
+        if(child != null) {
+            child.setParent(pos.getParent());
+        }
+        if(pos == root) {
+            root = child;
+        } else {
+            Node<E> parent = pos.getParent();
+            if(pos == parent.getLeft()) {
+                parent.setLeft(child);
+            } else {
+                parent.setRight(child);
+            }
+        }
+        size--;
+        E tmp = pos.getElement();
+        pos.setElement(null);
+        pos.setRight(null);
+        pos.setLeft(null);
+        pos.setParent(null);
+        return tmp;
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
+        int count = 0;
         for(Position<E> p : positions()) {
+            if(count == 0){
+                count++;
+            } else {
+                sb.append(", ");
+            }
             sb.append(p.getElement());
-            sb.append(", ");
         }
         sb.append("]");
         return sb.toString();

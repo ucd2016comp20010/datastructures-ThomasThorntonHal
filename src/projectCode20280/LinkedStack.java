@@ -8,7 +8,6 @@ public class LinkedStack<E> implements Stack<E> {
     public LinkedStack() { } // new stack relies on the initially empty list
 
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
         LinkedStack<Integer> stack = new LinkedStack<>();
 
         stack.push(10);
@@ -85,8 +84,7 @@ public class LinkedStack<E> implements Stack<E> {
         String result = "[";
 
         for(int i = 0; i < size(); i++){
-            result += list.get(size() - i - 1); /* this toString method prints the array backwards
-                                                    just to keep consistency with ArrayStack */
+            result += list.get(i);
             if(i < size() - 1){
                 result += ", ";
             }

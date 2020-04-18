@@ -290,6 +290,14 @@ public class SinglyLinkedList<E> implements List<E> {
             return get(0);
         }
     }
+
+    public E last() {
+        if(isEmpty()) {
+            return null;
+        } else {
+            return get(size() - 1);
+        }
+    }
     
     public static void main(String[] args) {
         String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");

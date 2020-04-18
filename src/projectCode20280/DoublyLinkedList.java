@@ -257,6 +257,22 @@ public class DoublyLinkedList<E> implements List<E> {
         addBetween(e, trailer, trailer.getPrev());
     }
 
+    public E first() {
+        if(isEmpty()) {
+            return null;
+        } else {
+            return get(0);
+        }
+    }
+
+    public E last() {
+        if(isEmpty()) {
+            return null;
+        } else {
+            return get(size() - 1);
+        }
+    }
+
     public static void main(String[] args) {
         DoublyLinkedList<Integer> ll = new DoublyLinkedList<Integer>();
         ll.addFirst(2);
