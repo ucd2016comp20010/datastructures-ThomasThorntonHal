@@ -1,4 +1,5 @@
 package projectCode20280;
+
 import java.util.ArrayList;
 
 /**
@@ -253,31 +254,42 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
      * @throws IllegalArgumentException if p has two children.
      */
     public E remove(Position<E> p) throws IllegalArgumentException {
-        Node<E> pos = (Node<E>) p;
-        if(numChildren(p) == 2) {
-            throw new IllegalArgumentException("Node has 2 children");
-        }
-        Node<E> child = (pos.getLeft() != null ? pos.getLeft() : pos.getRight());
-        if(child != null) {
-            child.setParent(pos.getParent());
-        }
+        Node<E> pos = validate(p);
+        Node<E> parent = ((Node<E>) p).parent; // parent of given node
+        if (pos.left != null && pos.right != null) // if p has 2 children throw error
+            throw new IllegalArgumentException("Too many children");
+        Node<E> child = (pos.getLeft() != null ? pos.getLeft() : pos.getRight() );
         if(pos == root) {
             root = child;
         } else {
-            Node<E> parent = pos.getParent();
-            if(pos == parent.getLeft()) {
-                parent.setLeft(child);
+            if (child == null) { // if p has no children it can be unlinked from its parent
+                if (parent.getLeft() == p) {
+                    parent.setLeft(null);
+                } else {
+                    parent.setRight(null);
+                }
+                pos.setParent(null);
             } else {
-                parent.setRight(child);
+                if (parent.getLeft() == p) {
+                    if (pos.left != null) { // replace parents child with deleted nodes child
+                        parent.setLeft(pos.left);
+                    } else {
+                        parent.setLeft(pos.right);
+                    }
+                } else {
+                    if (pos.left != null) { // replace parents child with deleted nodes child
+                        parent.setRight(pos.left);
+                    } else {
+                        parent.setRight(pos.right);
+                    }
+                }
             }
         }
-        size--;
-        E tmp = pos.getElement();
-        pos.setElement(null);
-        pos.setRight(null);
-        pos.setLeft(null);
         pos.setParent(null);
-        return tmp;
+        pos.setLeft(null);
+        pos.setRight(null);
+        size--;
+        return pos.element;
     }
 
     public String toString() {
