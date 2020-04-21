@@ -19,6 +19,11 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	// private utility
 	/** Returns the index of an entry with equal key, or -1 if none found. */
 	private int findIndex(K key) {
+		for(int i=0; i < table.size(); i++) {
+			if(table.get(i).getKey().equals(key)) {
+				return i;
+			}
+		}
 		return -1;
 	}
 
@@ -42,8 +47,11 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	 */
 	@Override
 	public V get(K key) {
-		//TODO
-		return null;
+		int index = findIndex(key);
+		if(index == -1) // check if key exists
+			return null;
+		else
+			return table.get(index).getValue();
 	}
 
 	/**
@@ -58,8 +66,12 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	 */
 	@Override
 	public V put(K key, V value) {
-		// TODO
-		return null;
+		int index = findIndex(key);
+		if(index == -1) {
+			table.add(new MapEntry<>(key, value));
+			return null;
+		} else
+			return table.get(index).setValue(value);
 	}
 
 	/**
@@ -72,8 +84,14 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	 */
 	@Override
 	public V remove(K key) {
-		// TODO
-		return null;
+		int index = findIndex(key);
+		if(index == -1)
+			return null;
+		V value = table.get(index).getValue();
+		if(index != size() - 1)
+			table.set(index, table.get(size() - 1));
+		table.remove(size()-1);
+		return value;
 	}
 
 	// ---------------- nested EntryIterator class ----------------
@@ -110,5 +128,24 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	@Override
 	public Iterable<Entry<K, V>> entrySet() {
 		return new EntryIterable();
+	}
+
+	public static void main(String[] args) {
+		UnsortedTableMap<String, Integer> tableMap = new UnsortedTableMap<>();
+		tableMap.put("A", 1);
+		tableMap.put("B", 2);
+		tableMap.put("C", 3);
+		tableMap.put("D", 4);
+
+		System.out.println(tableMap.toString());
+		System.out.println("Replaced value (Expected 2): " + tableMap.put("B", 20));
+		System.out.println(tableMap.toString());
+
+		System.out.println("Element removed (Expected 1): " + tableMap.remove("A"));
+		System.out.println(tableMap.toString());
+	}
+
+	public String toString() {
+		return table.toString();
 	}
 }
