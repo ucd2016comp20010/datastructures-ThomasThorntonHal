@@ -2,10 +2,6 @@ package projectCode20280;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  * An implementation of a sorted map using a binary search tree.
@@ -20,6 +16,11 @@ public class TreeMap<K extends Comparable<K>, V> extends AbstractSortedMap<K, V>
     public TreeMap() {
         super(); // the AbstractSortedMap constructor
         tree.addRoot(null); // create a sentinel leaf as root
+    }
+
+    public TreeMap(Comparator<K> comp) {
+        super(comp);
+        tree.addRoot(null);
     }
 
     /**
@@ -306,8 +307,8 @@ public class TreeMap<K extends Comparable<K>, V> extends AbstractSortedMap<K, V>
         Position<Entry<K, V>> p = treeSearch(root(), key);
         if(isInternal(p) && isInternal(right(p)))
             return treeMin(right(p)).getElement();
-        while (!isExternal(right(p))) {
-            if (p == right(parent(p)))
+        while (!isRoot(p)) {
+            if (p == left(parent(p)))
                 return parent(p).getElement();
             else
                 p = parent(p);
@@ -327,6 +328,16 @@ public class TreeMap<K extends Comparable<K>, V> extends AbstractSortedMap<K, V>
         for (Position<Entry<K, V>> p : tree.inorder())
             if (isInternal(p))
                 buffer.add(p.getElement());
+
+        return buffer;
+    }
+
+    @Override
+    public Iterable<K> keySet() {
+        ArrayList<K> buffer = new ArrayList<>(size());
+        for (Position<Entry<K, V>> p : tree.inorder())
+            if (isInternal(p))
+                buffer.add(p.getElement().getKey());
 
         return buffer;
     }
@@ -421,7 +432,8 @@ public class TreeMap<K extends Comparable<K>, V> extends AbstractSortedMap<K, V>
         System.out.println("Lower Entry 82 (expect 80): " + treeMap.lowerEntry(82));
         System.out.println("Ceiling Entry 82 (expect 82): " + treeMap.ceilingEntry(82));
         System.out.println("Ceiling Entry 60 (expect 65): " + treeMap.ceilingEntry(60));
-        System.out.println("Ceiling Entry 82 (expect 93): " + treeMap.higherEntry(82));
+        System.out.println("Higher Entry 82 (expect 93): " + treeMap.higherEntry(82));
+        System.out.println(treeMap.entrySet());
 
     }
 }
