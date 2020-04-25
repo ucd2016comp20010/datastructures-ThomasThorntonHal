@@ -7,7 +7,6 @@ public class LinkedDeque<E> implements Deque<E> {
 	DoublyLinkedList<E> deque = new DoublyLinkedList<>();
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		LinkedDeque<String> DEque = new LinkedDeque<>();
 
 		DEque.addLast("Element 1 (Tail)");

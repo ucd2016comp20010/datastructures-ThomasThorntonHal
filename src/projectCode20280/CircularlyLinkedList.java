@@ -263,7 +263,6 @@ public class CircularlyLinkedList<E> implements List<E> {
     }
 
     public void rotate() {
-        // TODO (maybe doesn't work?)
         tail = tail.getNext();
     }
 
