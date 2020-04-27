@@ -1,18 +1,12 @@
 package projectCode20280;
 
-import javafx.geometry.Pos;
-
 import java.util.Comparator;
 
 /**
  * An implementation of a sorted map using an AVL tree.
  */
 
-public class AVLTreeMap<K extends Comparable<K>, V> extends TreeMap<K, V> {
-
-
-    protected BalanceableBinaryTree<K, V> tree = new BalanceableBinaryTree<>();
-
+public class AVLTreeMap<K, V> extends TreeMap<K, V> {
 
 	/** Constructs an empty map using the natural ordering of keys. */
 	public AVLTreeMap() {
@@ -21,7 +15,7 @@ public class AVLTreeMap<K extends Comparable<K>, V> extends TreeMap<K, V> {
 
 	/**
 	 * Constructs an empty map using the given comparator to order keys.
-	 * 
+	 *
 	 * @param comp comparator defining the order of keys in the map
 	 */
 	public AVLTreeMap(Comparator<K> comp) {
@@ -81,13 +75,13 @@ public class AVLTreeMap<K extends Comparable<K>, V> extends TreeMap<K, V> {
 	}
 
 	/** Overrides the TreeMap rebalancing hook that is called after an insertion. */
-	//@Override
+	@Override
 	protected void rebalanceInsert(Position<Entry<K, V>> p) {
 		rebalance(p);
 	}
 
 	/** Overrides the TreeMap rebalancing hook that is called after a deletion. */
-	//@Override
+	@Override
 	protected void rebalanceDelete(Position<Entry<K, V>> p) {
 		if(!isRoot(p))
 			rebalance(parent(p));
@@ -113,10 +107,10 @@ public class AVLTreeMap<K extends Comparable<K>, V> extends TreeMap<K, V> {
 		BinaryTreePrinter< Entry<K, V> > btp = new BinaryTreePrinter<>( (LinkedBinaryTree<Entry<K, V>>) this.tree);
 		return btp.print();
 	}
-	
+
 	public static void main(String [] args) {
 		AVLTreeMap<Integer, Integer> avl = new AVLTreeMap<>();
-		Integer[] arr = new Integer[] { 44, 17, 88, 8, 32, 65, 97, 28, 54, 82, 93, 21, 29, 76, 80 };
+		Integer[] arr = new Integer[] { 1, 2, 3, 4, 5, 9, 11, 14, 15, 17, 19, 21, 24, 25, 27, 33, 34, 35, 36, 38, 39, 40, 41, 44, 45, 46, 47, 49};
 		for (Integer i : arr) {
 			avl.put(i, i);
 		}
@@ -127,9 +121,9 @@ public class AVLTreeMap<K extends Comparable<K>, V> extends TreeMap<K, V> {
 		avl.remove(arr[0]);
 
 		System.out.println("avl: " + avl);
-		BinaryTreePrinter<Entry<Integer, Integer>> btp = new BinaryTreePrinter<>(avl.tree);
-		System.out.println(btp.print());
 		avl.toBinaryTreeString();
+		avl.rebalance(avl.root());
+		System.out.println(avl.toBinaryTreeString());
 	}
 }
 

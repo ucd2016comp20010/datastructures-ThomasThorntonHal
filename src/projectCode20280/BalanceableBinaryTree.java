@@ -48,7 +48,7 @@ public class BalanceableBinaryTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
 	/**
 	 * Rotates Position p above its parent. Switches between these configurations,
 	 * depending on whether p is a or p is b.
-	 * 
+	 *
 	 * <pre>
 	 *          b                  a
 	 *         / \                / \
@@ -56,7 +56,7 @@ public class BalanceableBinaryTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
 	 *       / \                    / \
 	 *      t0  t1                 t1  t2
 	 * </pre>
-	 * 
+	 *
 	 * Caller should ensure that p is not the root.
 	 */
 	public void rotate(Position<Entry<K, V>> p) {
@@ -84,7 +84,7 @@ public class BalanceableBinaryTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
 	 * Returns the Position that becomes the root of the restructured subtree.
 	 *
 	 * Assumes the nodes are in one of the following configurations:
-	 * 
+	 *
 	 * <pre>
 	 *     z=a                 z=c           z=a               z=c
 	 *    /  \                /  \          /  \              /  \
@@ -94,10 +94,10 @@ public class BalanceableBinaryTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
 	 *        /  \        /  \               /  \              /  \
 	 *       t2  t3      t0  t1             t1  t2            t1  t2
 	 * </pre>
-	 * 
+	 *
 	 * The subtree will be restructured so that the node with key b becomes its
 	 * root.
-	 * 
+	 *
 	 * <pre>
 	 *           b
 	 *         /   \
@@ -105,7 +105,7 @@ public class BalanceableBinaryTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
 	 *      / \     / \
 	 *     t0  t1  t2  t3
 	 * </pre>
-	 * 
+	 *
 	 * Caller should ensure that x has a grandparent.
 	 */
 	public Position<Entry<K, V>> restructure(Position<Entry<K, V>> x) {
@@ -120,4 +120,4 @@ public class BalanceableBinaryTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
 			return x;
 		}
 	}
-} 
+}
