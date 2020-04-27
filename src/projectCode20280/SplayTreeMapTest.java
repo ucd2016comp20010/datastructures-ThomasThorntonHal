@@ -79,7 +79,7 @@ class SplayTreeMapTest {
 		for(Integer i : arr) {
 			map.put(i, Integer.toString(i));
 		}
-		
+
 		assertEquals(12, map.ceilingEntry(11).getKey());
 		
 		assertEquals(2, map.ceilingEntry(2).getKey());
